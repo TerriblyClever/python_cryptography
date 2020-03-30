@@ -51,15 +51,17 @@ def compute_lcm(a, b):
 
 def compute_e(p, q, e=0):
 	n = p * q
+	lambda_n = compute_lambda_n(p, q)
 	if e == 0:
-		e = random.randint(2, n)
-
-	if 1<e<n:
+		while compute_gcd(e, lambda_n) != 1:
+			e = random.randint(2, n)
+		return e	
+	else:
+		if 1<e<n and compute_gcd(e, lambda_n) != 1:
+			return e
+		else:
+			return 0	
 		
-	elif user_e == "":
-		e = random.randint(2,n)
-		coprime = gcd(e, compute_lambda_n(
-
 '''
 user_input = input("Choose rsa value to compute: prime n l(n) e d:\n>>".strip().lower())
 while user_input != 'q':
