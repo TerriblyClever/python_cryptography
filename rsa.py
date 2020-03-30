@@ -17,7 +17,11 @@ def is_prime(number):
     else:
         i = 5
         while i**2 <= number:
-            if number%i==0 or number%(i+2)==0:
+            '''would like to try number%(i-1)==0 and number%(i+1)==0 to more 
+			closely mirror the actual pattern; may be slower since 'i' is 
+			modified 2x rather than once
+			'''
+            if number%i==0 or number%(i+2)==0: 
                 print("Not a prime")
                 return False
             i += 6
@@ -26,8 +30,25 @@ def is_prime(number):
 
 def compute_n(p, q):
 	n = p * q
-	print(n)
-	return n
+	print(n) #delete this line when finished
+	return int(n)
+
+def compute_lambda_n(p, q):
+	print(compute_lcm(p-1, q-1))
+	return int(compute_lcm(p-1, q-1))
+
+def compute_gcd(a, b):
+	if a == 0:		#if the value of a is 0, then b is the gcd
+		return b 
+	elif b == 0:	#likewise, if the value of b = 0, then a is the gcd
+		return a 
+	else:
+		a, b = b, a%b #if neither is zero, we run gcd on a new value for a and b
+		return int(compute_gcd(a, b)) #recursively, returning the recursive result
+
+def compute_lcm(a, b):
+	lcm = (a * b)/compute_gcd(a, b)
+	return int(lcm)
 
 user_input = input("Choose rsa value to compute: prime n l(n) e d:\n>>".strip().lower())
 while user_input != 'q':
@@ -38,7 +59,16 @@ while user_input != 'q':
 		p, q = int(input("Enter value for p:\n>>")), int(input("Enter value for q:\n>>"))
 		compute_n(p, q)
 	elif user_input == 'l(n)':
-		pass
+		p, q = int(input("Enter value for p:\n>>")), int(input("Enter value for q:\n>>"))
+		compute_lambda_n(p, q)
+	elif user_input == 'gcd':
+		a = int(input("a: "))
+		b = int(input("b: "))
+		compute_gcd(a, b)
+	elif user_input == 'lcm':
+		a = int(input("a: "))
+		b = int(input("b: "))
+		compute_lcm(a, b)
 	elif user_input == 'e':
 		pass
 	elif user_input == 'd':
