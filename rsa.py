@@ -1,3 +1,4 @@
+import random
 import math
 
 #Function to determine if specified number is a valid prime
@@ -30,11 +31,9 @@ def is_prime(number):
 
 def compute_n(p, q):
 	n = p * q
-	print(n) #delete this line when finished
 	return int(n)
 
 def compute_lambda_n(p, q):
-	print(compute_lcm(p-1, q-1))
 	return int(compute_lcm(p-1, q-1))
 
 def compute_gcd(a, b):
@@ -50,6 +49,18 @@ def compute_lcm(a, b):
 	lcm = (a * b)/compute_gcd(a, b)
 	return int(lcm)
 
+def compute_e(p, q, e=0):
+	n = p * q
+	if e == 0:
+		e = random.randint(2, n)
+
+	if 1<e<n:
+		
+	elif user_e == "":
+		e = random.randint(2,n)
+		coprime = gcd(e, compute_lambda_n(
+
+'''
 user_input = input("Choose rsa value to compute: prime n l(n) e d:\n>>".strip().lower())
 while user_input != 'q':
 	if user_input == 'prime':
@@ -70,9 +81,11 @@ while user_input != 'q':
 		b = int(input("b: "))
 		compute_lcm(a, b)
 	elif user_input == 'e':
-		pass
+		print("Would you like to enter a value for 'n' or use the stored value?")
+		user_input = input(
+		user_e = int(input("Enter value for 'e' or 0 for random value:\n>>".strip().lower()))
+		compute_e(n, user_e)
 	elif user_input == 'd':
 		pass
 	user_input = input("Choose rsa value to compute: prime n labmda(n) e d ('q' to quit)".strip().lower())
-
-
+'''
