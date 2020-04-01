@@ -113,4 +113,29 @@ def verify_e(e, p, q):
 	else:
 		return False	
 	
+def generate_keys(p, q, e=0):
+	if not is_prime(p):
+		print("{} is not prime. Values 'p' and 'q' must be prime.".format(p))
+		return False
+	if not is_prime(q):
+		print("{} is not prime. Values 'p' and 'q' must be prime.".format(q))
+		return False
+	n = compute_n(p, q)
+	ln = carmichael_totient(p, q)
+	if e == 0:
+		e = compute_e(p, q)
+	else:
+		if verify_e(e, p, q):
+			pass
+		else:
+			print("{} not a valid value for 'e'. Must be coprime with lambda(n) and between 1 and lambda(n).".format(e))
+	d = compute_modular_inverse(e, ln)
+	public_key, private_key = (n, e), (n, d)
+
+	print("\nPublic key:", public_key, "\nPrivate key:", private_key, "\n")
+	return public_key, private_key
+
+generate_keys(1000159, 10627, 65537)
+
+
 
