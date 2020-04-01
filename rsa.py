@@ -31,8 +31,9 @@ def compute_n(p, q):
 def carmichael_totient(p, q):
 	return int(compute_lcm(p-1, q-1))
 
-def euler_totient(p, q):
-	n = compute_n(p, q)
+#strictly speaking, this function not necessary for the RSA encryption file
+#it was written for a specific picoCTF problem, rsa-pop-quiz
+def euler_totient(n):
 	'''
 	#solution making use of brute-force method fore Euler totient function
 	phi = 1
@@ -63,6 +64,33 @@ def compute_gcd(a, b):
 		a, b = b, a%b #if neither is zero, we run gcd on a new value for a and b
 		return int(compute_gcd(a, b)) #recursively, returning the recursive result
 
+#function used to calculate the modular inverse of 'e', i.e. 'd' for RSA encryption
+def compute_modular_inverse(e, ln):
+	m0 = ln 
+	y = 0
+	x = 1
+
+	if ln == 1:
+		return 0
+
+	while e > 1:
+		#q is quotient
+		q = e//ln
+		t = ln
+
+		#lambda_n will now be the remainder and this will process like Euclid's algorithm
+		ln = e%ln
+		e = t
+		t = y
+
+		#update x and y
+		y = x - (q * y)
+		x = t
+	if x < 0:
+		x = x + m0
+
+	return x
+
 def compute_lcm(a, b):
 	lcm = (a * b)/compute_gcd(a, b)
 	return int(lcm)
@@ -80,37 +108,9 @@ def compute_e(p, q):
 def verify_e(e, p, q):
 	n = p * q
 	carmichael = carmichael_totient(p, q)
-	if 1<e<n and compute_gcd(e, lambda_n) == 1:
+	if 1<e<n and compute_gcd(e, carmichael) == 1:
 		return True 
 	else:
 		return False	
-		
-'''
-user_input = input("Choose rsa value to compute: prime n l(n) e d:\n>>".strip().lower())
-while user_input != 'q':
-	if user_input == 'prime':
-		number = int(input("Enter value to be checked:\n>>"))
-		is_prime(number)
-	elif user_input == 'n':
-		p, q = int(input("Enter value for p:\n>>")), int(input("Enter value for q:\n>>"))
-		compute_n(p, q)
-	elif user_input == 'l(n)':
-		p, q = int(input("Enter value for p:\n>>")), int(input("Enter value for q:\n>>"))
-		compute_lambda_n(p, q)
-	elif user_input == 'gcd':
-		a = int(input("a: "))
-		b = int(input("b: "))
-		compute_gcd(a, b)
-	elif user_input == 'lcm':
-		a = int(input("a: "))
-		b = int(input("b: "))
-		compute_lcm(a, b)
-	elif user_input == 'e':
-		print("Would you like to enter a value for 'n' or use the stored value?")
-		user_input = input(
-		user_e = int(input("Enter value for 'e' or 0 for random value:\n>>".strip().lower()))
-		compute_e(n, user_e)
-	elif user_input == 'd':
-		pass
-	user_input = input("Choose rsa value to compute: prime n labmda(n) e d ('q' to quit)".strip().lower())
-'''
+	
+
