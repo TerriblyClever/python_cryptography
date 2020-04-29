@@ -1,27 +1,29 @@
-import caesar_cipher #must match the ACTUAL filename
+import caesar_cipher
 import transposition_cipher
 import affineCipher, affineHacker
 import simpleSubCipher, simpleSubHacker
 import vigenereCipher, vigenereHacker, vigenereDictionaryHacker
 
 def selection():
-    user_input = input("Choose type of decryption:\n" +
-                            "1. Caesar, Encrypt (ce)\n" +
-                            "2. Caesar, Decrypt (cd)\n" +
-                            "3. Caesar, Hack (ch)\n" +
-                            "4. Transposition, Encrypt (te)\n" +
-                            "5. Transposition, Decrypt (td)\n" +
-                            "6. Transposition, Hack (th)\n" +
-                            "7. Affine, Encrypt (ae)\n" +
-                            "8. Affine, Decrypt (ad)\n" +
-                            "9. Affine, Hack (ah)\n" +
-                            "10. Substitution, Encrypt (se)\n" +
-                            "11. Substitution, Decrypt (sd)\n" +
-                            "12. Substitution, Hack (sh)\n" +
-                            "13. Vigenere, Encrypt (ve)\n" +
-                            "14. Vigenere, Decrypt (vd)\n" +
-                            "15. Vigenere, Hack (vh)\n\n" +
-                            "99. Quit\n>> ").title().strip()
+    print("Choose type of decryption:\n" +
+        "1. Caesar, Encrypt".ljust(30, '.')+"(ce)\n" +
+        "2. Caesar, Decrypt".ljust(30, '.')+"(cd)\n" +
+        "3. Caesar, Hack".ljust(30, '.')+"(ch)\n" +
+        "4. Transposition, Encrypt".ljust(30, '.')+"(te)\n" +
+        "5. Transposition, Decrypt".ljust(30, '.')+"(td)\n" +
+        "6. Transposition, Hack".ljust(30, '.')+"(th)\n" +
+        "7. Affine, Encrypt".ljust(30, '.')+"(ae)\n" +
+        "8. Affine, Decrypt".ljust(30, '.')+"(ad)\n" +
+        "9. Affine, Hack".ljust(30, '.')+"(ah)\n" +
+        "10. Substitution, Encrypt".ljust(30, '.')+"(se)\n" +
+        "11. Substitution, Decrypt".ljust(30, '.')+"(sd)\n" +
+        "12. Substitution, Hack".ljust(30, '.')+"(sh)\n" +
+        "13. Vigenere, Encrypt".ljust(30, '.')+"(ve)\n" +
+        "14. Vigenere, Decrypt".ljust(30, '.')+"(vd)\n" +
+        "15. Vigenere, Hack".ljust(30, '.')+"(vh)\n\n" +
+        "99. Quit\n")
+    user_input = input(">> ").title().strip()
+
     return user_input
 
 def to_continue():
